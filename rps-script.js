@@ -75,7 +75,7 @@ function playGame () {
                 break;
         }
     }
-    let finalResult = (tally >=1) ? "Yay, you won!" : (tally <= 1) ? "Oh no, you lost :(" : "It's a draw.";
+    let finalResult = (tally >=1) ? "Yay, you won!" : (tally < 0) ? "Oh no, you lost :(" : "It's a draw.";
     console.log (finalResult); 
 }
 
