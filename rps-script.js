@@ -53,8 +53,9 @@ function playGame () {
     for (let i = 1; i <=5 ; i++) {
         let playerChoice = prompt(`Round ${i} : Rock, Paper or Scissors?`);
         if (playerChoice.length < 4) {
-            playerChoice = prompt(`Too short. Rock, Paper or Scissors?`)
+            playerChoice = prompt("Too short. Rock, Paper or Scissors?");
         }
+        console.log(playerChoice);
         playerChoice = playerChoice.slice(0,1).toUpperCase() + playerChoice.slice(1).toLowerCase();
         if (!(playerChoice === "Rock" || playerChoice === "Paper" || playerChoice === "Scissors")) {
             console.log ("Not a valid move.");
