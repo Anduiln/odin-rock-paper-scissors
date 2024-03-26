@@ -5,6 +5,7 @@ choiceButtons.forEach(currentValue => currentValue.addEventListener("click", pla
 
 let playerScore = 0;
 let computerScore = 0;
+let draw = false;
 
 function getComputerChoice () {
     let random = Math.floor(Math.random()*3);
@@ -19,17 +20,26 @@ function getComputerChoice () {
 }
 
 function playRound (event) {
+    let score;
+    if (playerScore === 0 && computerScore === 0 && draw === false) {
+        score = document.createElement("p");
+        score.setAttribute("id", "currentScore");
+        output.appendChild(score);
+    } else {
+        score = document.querySelector("#currentScore");
+        draw = false;
+    }
+
     let playerChoice = event.target.textContent;
     let computerChoice = getComputerChoice();
     
     const result = document.createElement("p");
-    const score = document.createElement("p");
     
     if (playerChoice === computerChoice) {
         result.textContent = `It's a draw! You both played ${playerChoice}.`;
         output.appendChild(result);
-        score.textContent = `Computer : ${computerScore} - ${playerScore} : Player`;
-        output.appendChild(score);
+        score.textContent = `Player : ${playerScore} - ${computerScore} : Computer`;
+        draw = true;
         return;
     }
     switch (playerChoice) {
@@ -65,20 +75,24 @@ function playRound (event) {
             }
     }
     output.appendChild(result);
-    score.textContent = `Computer : ${computerScore} - ${playerScore} : Player`;
-    output.appendChild(score);
+    score.textContent = `Player : ${playerScore} - ${computerScore} : Computer`;
+    
     if (computerScore === 5) {
         const finalResult = document.createElement("p");
         finalResult.textContent = "Oh no, the computer won 5 times! You lose the game..."
         finalResult.style.fontWeight = 900;
         output.appendChild(finalResult);
+
+        score.removeAttribute("id");
         computerScore = 0;
         playerScore = 0;
     } else if (playerScore === 5) {
         const finalResult = document.createElement("p");
         finalResult.textContent = "Hurray! With five wins, you are the victor :)"
-        output.appendChild(finalResult);
         finalResult.style.fontWeight = 900;
+        output.appendChild(finalResult);
+
+        score.removeAttribute("id");
         computerScore = 0;
         playerScore = 0;
     }
